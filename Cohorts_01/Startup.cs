@@ -1,4 +1,7 @@
-﻿namespace Cohorts_01;
+﻿using Cohorts_01.Validation;
+using FluentValidation.AspNetCore;
+
+namespace Cohorts_01;
 
 public class Startup
 {
@@ -11,7 +14,12 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddControllers();
+        services.AddControllers().AddFluentValidation(f =>
+        {
+            //Dependency Injection
+            f.RegisterValidatorsFromAssemblyContaining<UserValidation>();
+           
+        });;
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
     }
